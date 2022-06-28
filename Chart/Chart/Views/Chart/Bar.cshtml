@@ -1,0 +1,54 @@
+﻿<h2>Bar Chart</h2>
+
+<canvas id="myChart" style="height:50px;width: content-box;"></canvas>
+
+<br /><br /><br />
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var color = Chart.helpers.color;
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    datasets: [{
+                        label: 'FMX',
+                        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.red,
+                        borderWidth: 1,
+                        data: [
+                            48,
+                            43,
+                            5,
+                        ]
+                    }, {
+                        label: 'GoGet',
+                        backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.blue,
+                        borderWidth: 1,
+                        data: [
+                            18,
+                            18,
+                            0,
+                        ]
+                    }],
+                    labels: ["Received", "OTIF", "Over SLA"],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Breakdown by Agent - Prev Mth'
+                    },
+                    barPercentage: 0.1
+                }
+            });
+        });
+    </script>
+}
+

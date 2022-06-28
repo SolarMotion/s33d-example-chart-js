@@ -1,0 +1,65 @@
+﻿<h2>Line Chart</h2>
+
+<canvas id="myChart" style="height:50px;width: content-box;"></canvas>
+
+<br /><br /><br />
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'FMX',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        data: [70, 50, 40, 20, 15, 35, 40, 30, 60, 30, 60, 30],
+                        fill: false,
+                    }, {
+                        label: 'GoGet',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        data: [30, 30, 20, 20, 5, 5, 20, 50, 20, 70, 60, 10],
+                        fill: false,
+                    }, {
+                        label: 'Order Received',
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        data: [100, 80, 60, 40, 20, 40, 60, 80, 80, 100, 120, 40],
+                        fill: false,
+                    }],
+                    labels: ["Nov 16", "Dec 16", "Jan 17", "Feb 17", "Mar 17", "Apr 17", "May 17", "June 17", "July 17", "Aug 17", "Sep 17", "Oct 17"],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'OTIF By Month'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Month'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Quantity'
+                            }
+                        }]
+                    },
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,513 @@
+﻿@{
+    var lineData1 = new int[7] { 20, 17, 13, 8, 2, 0, 30 };
+    var lineData2 = new int[7] { 5, 7, 9, 4, 19, 3, 2 };
+    var lineData3 = new int[7] { 25, 24, 22, 12, 21, 3, 32 };
+
+    var pieData1 = new int[2] { 92, 8 };
+    var pieData2 = new int[2] { 30, 70 };
+
+    var barData1 = new int[3] { 48, 43, 5 };
+    var barData2 = new int[3] { 18, 18, 0 };
+}
+
+<style>
+    /*Code below for chart*/
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        border: 0.1px solid gray;
+    }
+
+    .line-chart-container {
+        width: 32%;
+        height: 300px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .line-outer-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .pie-chart-container {
+        width: 48%;
+        height: 300px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .pie-outer-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .bar-chart-container {
+        width: 100%;
+        height: 300px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .bar-outer-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    /*Code below for info card*/
+    .info-container {
+        width: 10%;
+        height: 100px;
+        margin-left: 0px;
+        margin-right: 0px;
+        border-radius:3px 3px 3px 3px;
+    }
+
+    .info-outer-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        word-wrap: break-word;
+        color: white;
+    }
+</style>
+
+<h2>Multi Charts</h2>
+<br />
+
+<div class="info-outer-container">
+    <div class="info-container col-md-12" style="background-color:#00ADD8">
+        <h6>Inventory Rem.</h6>
+        <h3>50/100</h3>
+    </div>
+
+    <span style="width:3%;"></span>
+    <div class="info-container col-md-12" style="background-color:#009551">
+        <h6>Prm Ord. Pend.</h6>
+        <h3>50</h3>
+    </div>
+
+    <span style="width:3%;"></span>
+    <div class="info-container col-md-12" style="background-color:#DB8D0F">
+        <h6>Std. Ord. Pend.</h6>
+        <h3>50</h3>
+    </div>
+
+    <span style="width:3%;"></span>
+    <div class="info-container col-md-12" style="background-color:#C74432">
+        <h6>P.E. Ord. Pend.</h6>
+        <h3>50</h3>
+    </div>
+
+    <span style="width:3%;"></span>
+    <div class="info-container col-md-12" style="background-color:#00ADD8">
+        <h6>Prm. Ord. Cls.</h6>
+        <h3>50</h3>
+    </div>
+
+    <span style="width:3%;"></span>
+    <div class="info-container col-md-12" style="background-color:#009551">
+        <h6>Std. Ord Prcsd.</h6>
+        <h3>50</h3>
+    </div>
+
+    <span style="width:3%;"></span>
+    <div class="info-container col-md-12" style="background-color:#DB8D0F">
+        <h6>Ord. Rec. Today</h6>
+        <h3>50</h3>
+    </div>
+
+    <span style="width:2%;"></span>
+    <div class="info-container col-md-12" style="background-color:#C74432">
+        <h6>Ord. Rec. Y'day.</h6>
+        <h3>50</h3>
+    </div>
+</div>
+
+<br /><br />
+
+
+<div class="line-outer-container">
+    <div class="line-chart-container">
+        <canvas id="lineChart1"></canvas>
+    </div>
+    <span style="width:2%;"></span>
+    <div class="line-chart-container">
+        <canvas id="lineChart2"></canvas>
+    </div>
+    <span style="width:2%;"></span>
+    <div class="line-chart-container">
+        <canvas id="lineChart3"></canvas>
+    </div>
+</div>
+
+<br />
+
+<div class="pie-outer-container">
+    <div class="pie-chart-container">
+        <canvas id="pieChart1"></canvas>
+    </div>
+    <span style="width:4%;"></span>
+    <div class="pie-chart-container">
+        <canvas id="pieChart2"></canvas>
+    </div>
+</div>
+
+<br />
+
+<div class="bar-outer-container">
+    <div class="bar-chart-container">
+        <canvas id="barChart1"></canvas>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            var lineData1 = [];
+            @foreach (var d in lineData1)
+            {
+                @:lineData1.push("@d");
+                                                                                                                        }
+
+            var lineData2 = [];
+            @foreach (var d in lineData2)
+            {
+                @:lineData2.push("@d");
+                                                                                                                                    }
+
+            var lineData3 = [];
+            @foreach (var d in lineData3)
+            {
+                @:lineData3.push("@d");
+                                                                                                                                    }
+
+            var pieData1 = [];
+            @foreach (var d in pieData1)
+            {
+                @:pieData1.push("@d");
+                                                                                                                                    }
+
+            var pieData2 = [];
+            @foreach (var d in pieData2)
+            {
+                @:pieData2.push("@d");
+                                                                                                                                    }
+
+            var barData1 = [];
+            @foreach (var d in barData1)
+            {
+                @:barData1.push("@d");
+                                                                                                                        }
+
+            var barData2 = [];
+            @foreach (var d in barData2)
+            {
+                @:barData2.push("@d");
+                                                                                                                                    }
+
+            // #region Line Chart 1
+
+            var ctx = document.getElementById("lineChart1");
+            var lineChart1 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'FMX',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        data: lineData1,
+                        fill: false,
+                    }, {
+                        label: 'GoGet',
+                        backgroundColor: window.chartColors.grey,
+                        borderColor: window.chartColors.grey,
+                        data: lineData2,
+                        fill: false,
+                    }, {
+                        label: 'Order Received',
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        data: lineData3,
+                        fill: false,
+                    }],
+                    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'SIM Orders Received by Day'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Quantity'
+                            }
+                        }]
+                    },
+                }
+            });
+
+            // #endregion
+
+            // #region Line Chart 2
+
+            var ctx = document.getElementById("lineChart2");
+            var lineChart2 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'FMX',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        data: [70, 50, 40, 20, 15, 35, 40, 30, 60, 30, 60, 30],
+                        fill: false,
+                    }, {
+                        label: 'GoGet',
+                        backgroundColor: window.chartColors.grey,
+                        borderColor: window.chartColors.grey,
+                        data: [30, 30, 20, 20, 5, 5, 20, 50, 20, 70, 60, 10],
+                        fill: false,
+                    }, {
+                        label: 'Order Received',
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        data: [100, 80, 60, 40, 20, 40, 60, 80, 80, 100, 120, 40],
+                        fill: false,
+                    }],
+                    labels: ["11/9/2017", "18/9/2017", "25/9/2017", "2/10/2017", "9/10/2017", "16/10/2017", "23/10/2017", "30/10/2017", "6/11/2017", "13/11/2017", "20/11/2017", "27/11/2017"],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'SIM Orders Received by Week'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Week'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Quantity'
+                            }
+                        }]
+                    },
+                }
+            });
+
+            // #endregion
+
+            // #region Line Chart 3
+
+            var ctx = document.getElementById("lineChart3");
+            var lineChart3 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'FMX',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        data: [70, 50, 40, 20, 15, 35, 40, 30, 60, 30, 60, 30],
+                        fill: false,
+                    }, {
+                        label: 'GoGet',
+                        backgroundColor: window.chartColors.grey,
+                        borderColor: window.chartColors.grey,
+                        data: [30, 30, 20, 20, 5, 5, 20, 50, 20, 70, 60, 10],
+                        fill: false,
+                    }, {
+                        label: 'Order Received',
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        data: [100, 80, 60, 40, 20, 40, 60, 80, 80, 100, 120, 40],
+                        fill: false,
+                    }],
+                    labels: ["Nov 16", "Dec 16", "Jan 17", "Feb 17", "Mar 17", "Apr 17", "May 17", "June 17", "July 17", "Aug 17", "Sep 17", "Oct 17"],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'OTIF By Month'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Month'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Quantity'
+                            }
+                        }]
+                    },
+                }
+            });
+
+            // #endregion
+
+            // #region Pie Chart 1
+
+            var ctx = document.getElementById("pieChart1");
+            var pieChart1 = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: pieData1,
+                        backgroundColor: [
+                          "#006400", "#FF0000",
+                        ],
+                    }],
+
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'Delivery < SLA',
+                        'Delivery > SLA'
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Delivery OTIF Prev. Week - 66 Deliveries'
+                    }
+                }
+            });
+
+            // #endregion
+
+            // #region Pie Chart 2
+
+            var ctx = document.getElementById("pieChart2");
+            var pieChart2 = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: pieData2,
+                        backgroundColor: [
+                          "#006400", "#FF0000",
+                        ],
+                    }],
+
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'Delivery < SLA',
+                        'Delivery > SLA'
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Delivery OTIF Prev. Month - 20,750 Deliveries'
+                    }
+                }
+            });
+
+            // #endregion
+
+            // #region Bar chart 1
+
+            var color = Chart.helpers.color;
+            var ctx = document.getElementById("barChart1");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    datasets: [{
+                        label: 'FMX',
+                        backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.blue,
+                        borderWidth: 1,
+                        data: barData1
+                    }, {
+                        label: 'GoGet',
+                        backgroundColor: color(window.chartColors.orange).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.orange,
+                        borderWidth: 1,
+                        data: barData2
+                    }],
+                    labels: ["Received", "OTIF", "Over SLA"],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Breakdown by Agent - Prev Mth'
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            categorySpacing: 0,
+                            barPercentage: 0.4
+                        }]
+                    }
+                }
+            });
+
+            // #endregion
+        });
+    </script>
+}
